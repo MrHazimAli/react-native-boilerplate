@@ -1,3 +1,6 @@
+Original boilerplate is a branch from https://github.com/jhen0409/react-native-boilerplate
+I just made a little bit tweak to what I need
+
 # React Native Boilerplate
 
 [![Build Status](https://travis-ci.org/jhen0409/react-native-boilerplate.svg)](https://travis-ci.org/jhen0409/react-native-boilerplate)
