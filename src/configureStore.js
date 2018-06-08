@@ -1,7 +1,9 @@
 /* eslint global-require: 0 */
 
-import { Platform } from 'react-native';
+import { Platform, AsyncStorage } from 'react-native';
 import { createStore, applyMiddleware, compose } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist'
+import immutableTransform from 'redux-persist-transform-immutable';
 import thunk from 'redux-thunk';
 import reducer from './reducers';
 import * as actionCreators from './actions/counter';
@@ -20,15 +22,32 @@ if (__DEV__) {
 }
 
 const enhancer = composeEnhancers(
-  applyMiddleware(thunk)
+  applyMiddleware(thunk),
 );
 
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+  transforms: [immutableTransform()],
+  blacklist: ['nav']
+}
+
+const persistedReducer = persistReducer(persistConfig, reducer)
+
 export default function configureStore(initialState) {
-  const store = createStore(reducer, initialState, enhancer);
+  const store = createStore(persistedReducer, initialState, enhancer);
   if (module.hot) {
     module.hot.accept(() => {
-      store.replaceReducer(require('./reducers').default);
+      store.replaceReducer(
+        persistReducer(persistConfig,require('./reducers').default)
+      );
     });
   }
+
+  persistStore(
+    store,
+    () => onStore(store)
+  ).purge();
+
   return store;
 }
