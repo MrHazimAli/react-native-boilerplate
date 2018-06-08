@@ -21,6 +21,7 @@ I just made a little bit tweak to what I need
 * [Immutable](https://github.com/facebook/immutable-js)
 * [Babel](https://github.com/babel/babel) & Plugins:
   [transform-decorators-legacy](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy)
+* [Redux Persist](https://github.com/rt2zz/redux-persist) & [redux-persist-transform-immutable](https://github.com/rt2zz/redux-persist-transform-immutable)
 
 ## Installation
 
